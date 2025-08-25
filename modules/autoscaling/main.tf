@@ -12,18 +12,9 @@ data "cloudinit_config" "config" {
   }
 }
 
-data "aws_ami" "ami-03aa99ddf5498ceb9" {
-  most_recent = true
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
-  }
-  owners = ["099720109477"]
-}
-
 resource "aws_launch_template" "webserver" {
   name_prefix   = var.namespace
-  image_id      = data.aws_ami.ami-03aa99ddf5498ceb9.id
+  image_id      = "ami-03aa99ddf5498ceb9"
   instance_type = "t2.micro"
   user_data     = data.cloudinit_config.config.rendered
   key_name      = var.ssh_keypair
