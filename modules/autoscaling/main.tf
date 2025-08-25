@@ -15,7 +15,7 @@ data "cloudinit_config" "config" {
 resource "aws_launch_template" "webserver" {
   name_prefix   = var.namespace
   image_id      = "ami-03aa99ddf5498ceb9"
-  instance_type = "t2.micro"
+  instance_type = "t3.small"
   user_data     = data.cloudinit_config.config.rendered
   key_name      = var.ssh_keypair
   iam_instance_profile {
